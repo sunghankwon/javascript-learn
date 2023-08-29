@@ -37,7 +37,7 @@ const fday = getDayOfWeek(20230801)
 
 for(i = 0; i < 7; i++){
     const array = thead.children[i]
-    if(i = fday){
+    if(i === fday){
         for(j = 1; j < array.length ; j++){
             const array = thead.children[j]
             thead.children[j+6].textContent = j;

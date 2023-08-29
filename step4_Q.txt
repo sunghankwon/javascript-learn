@@ -1,0 +1,13 @@
+ScopeQ
+Q1. 5
+Q2. 1
+Q3. 3
+Q4. 1
+Q5. 1
+
+P a R Q
+Q1. 30
+Q2. name: "ONE"
+Q3. 1
+Q4. [name: "ken", age: 30, naem: "wan", age: 38]  false
+Q5. data: "I am secret"
