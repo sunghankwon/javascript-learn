@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Varela+Round&display=swap");
+
 body {
   background-image: url("./images/bg.jpeg");
   background-repeat: no-repeat;
@@ -37,8 +39,32 @@ img {
   font-weight: bold;
 }
 
-table {
+.calendar-container {
+  width: 500px;
+  position: relative;
+  margin: 0 auto;
+  margin-bottom: 100px;
+}
+
+.calendar-container > .fa-arrow-left {
+  left: 0px;
+}
+
+.calendar-container > .fa-arrow-right {
+  right: 0px;
+}
+
+.calendar-container > i {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  cursor: pointer;
+}
+
+.calendar-container > table {
   border-collapse: collapse;
+  margin-left: 90px;
 }
 
 th {
