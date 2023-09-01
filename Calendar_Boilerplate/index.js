@@ -57,12 +57,18 @@ arrowbutton[1].addEventListener("click", function () {
 });
 
 for (i = 0; i < countTable.length; i++) {
+  countTable[i].idx = i;
   countTable[i].addEventListener("click", function () {
-    if (i === 0) {
-      day = 0;
+    if (this.idx - fday + 1 > lday) {
     } else {
-      var a = i % 7;
-      day = a;
+      if (this.idx === 0) {
+        day = 0;
+        date = this.idx - fday + 1;
+      } else {
+        let a = this.idx % 7;
+        day = a;
+        date = this.idx - fday + 1;
+      }
     }
     drawCalender();
   });
