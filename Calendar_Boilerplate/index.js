@@ -7,16 +7,16 @@ let day = today.getDay();
 
 const realtoday = new Date();
 
-let realyear = today.getFullYear();
-let realmonth = today.getMonth() + 1;
-let realdate = today.getDate();
+const realyear = today.getFullYear();
+const realmonth = today.getMonth() + 1;
+const realdate = today.getDate();
 
 let nowday = document.getElementById("now_day");
 let nowdate = document.getElementById("now_date");
 let nowmonth = document.getElementById("now_month");
 
-var lday;
-var fday = new Date(`${year}-${month}-01`).getDay();
+let lday;
+let fday = new Date(`${year}-${month}-01`).getDay();
 //alert(fday);
 
 const tbody1 = document.querySelectorAll("tbody > tr");
@@ -56,7 +56,7 @@ arrowbutton[1].addEventListener("click", function () {
   drawCalender();
 });
 
-for (i = 0; i < countTable.length; i++) {
+for (let i = 0; i < countTable.length; i++) {
   countTable[i].idx = i;
   countTable[i].addEventListener("click", function () {
     if (this.idx - fday + 1 > lday) {
@@ -97,7 +97,11 @@ const drawCalender = () => {
     lday = 31;
   } else if (month === 2) {
     nowmonth.textContent = `FEB ${year}`;
-    lday = 28;
+    if (year % 4 === 0) {
+      lday = 29;
+    } else {
+      lday = 28;
+    }
   } else if (month === 3) {
     nowmonth.textContent = `MAR ${year}`;
     lday = 31;
@@ -130,14 +134,14 @@ const drawCalender = () => {
     lday = 31;
   }
 
-  for (i = 0; i < 7; i++) {
+  for (let i = 0; i < 7; i++) {
     var c = 1;
     if (i === fday) {
-      for (k = 0; k < 42; k++) {
+      for (let k = 0; k < 42; k++) {
         countTable[k].textContent = "";
         countTable[k].style.color = "black";
       }
-      for (j = fday; j < lday + fday; j++) {
+      for (let j = fday; j < lday + fday; j++) {
         countTable[j].textContent = c;
         if (year === realyear && month === realmonth && realdate === date) {
           if (c === date) {
