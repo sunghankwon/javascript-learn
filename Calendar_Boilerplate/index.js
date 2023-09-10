@@ -1,73 +1,67 @@
 let today = new Date();
 
-let year = today.getFullYear();
-let month = today.getMonth() + 1;
-let date = today.getDate();
-let day = today.getDay();
+let selectedYear = today.getFullYear();
+let selectedMonth = today.getMonth() + 1;
+let selectedDate = today.getDate();
+let selectedDay = today.getDay();
 
-const realtoday = new Date();
+const realYear = today.getFullYear();
+const realMonth = today.getMonth() + 1;
+const realDate = today.getDate();
 
-const realyear = today.getFullYear();
-const realmonth = today.getMonth() + 1;
-const realdate = today.getDate();
+const writeDay = document.getElementById("now_day");
+const writeDate = document.getElementById("now_date");
+const writeMonth = document.getElementById("now_month");
 
-let nowday = document.getElementById("now_day");
-let nowdate = document.getElementById("now_date");
-let nowmonth = document.getElementById("now_month");
+let lastDay;
+let oneDay = new Date(`${selectedYear}-${selectedMonth}-01`).getDay();
+//alert(oneDay);
 
-let lday;
-let fday = new Date(`${year}-${month}-01`).getDay();
-//alert(fday);
+const drawTable = document.querySelectorAll("tbody > tr> th");
+//alert(drawTable.length);
 
-const tbody1 = document.querySelectorAll("tbody > tr");
-//alert(tbody1.length);
-const countTable = document.querySelectorAll("tbody > tr> th");
-//alert(countTable.length);
-
-const arrowbutton = document.querySelectorAll("i");
-
-arrowbutton[0].addEventListener("click", function () {
-  month--;
-  if (year === realyear && month === realmonth) {
-    date = realdate;
+const arrowButton = document.querySelectorAll("i");
+arrowButton[0].addEventListener("click", function () {
+  selectedMonth--;
+  if (selectedYear === realYear && selectedMonth === realMonth) {
+    selectedDate = realdate;
   } else {
-    date = 1;
+    selectedDate = 1;
   }
-  if (month === 0) {
-    year--;
-    month = 12;
+  if (selectedMonth === 0) {
+    selectedYear--;
+    selectedMonth = 12;
   }
-  day = new Date(`${year}-${month}-01`).getDay();
+  selectedDay = new Date(`${selectedYear}-${selectedMonth}-01`).getDay();
+  drawCalender();
+});
+arrowButton[1].addEventListener("click", function () {
+  selectedMonth++;
+  if (selectedYear === realYear && selectedMonth === realMonth) {
+    selectedDate = realDate;
+  } else {
+    selectedDate = 1;
+  }
+  if (selectedMonth === 13) {
+    selectedYear++;
+    selectedMonth = 1;
+  }
+  selectedDay = new Date(`${selectedYear}-${selectedMonth}-01`).getDay();
   drawCalender();
 });
 
-arrowbutton[1].addEventListener("click", function () {
-  month++;
-  if (year === realyear && month === realmonth) {
-    date = realdate;
-  } else {
-    date = 1;
-  }
-  if (month === 13) {
-    year++;
-    month = 1;
-  }
-  day = new Date(`${year}-${month}-01`).getDay();
-  drawCalender();
-});
-
-for (let i = 0; i < countTable.length; i++) {
-  countTable[i].idx = i;
-  countTable[i].addEventListener("click", function () {
-    if (this.idx - fday + 1 > lday) {
+for (let i = 0; i < drawTable.length; i++) {
+  drawTable[i].idx = i;
+  drawTable[i].addEventListener("click", function () {
+    if (this.idx - oneDay + 1 > lastDay) {
     } else {
       if (this.idx === 0) {
-        day = 0;
-        date = this.idx - fday + 1;
+        selectedDay = 0;
+        selectedDate = this.idx - oneDay + 1;
       } else {
         let a = this.idx % 7;
-        day = a;
-        date = this.idx - fday + 1;
+        selectedDay = a;
+        selectedDate = this.idx - oneDay + 1;
       }
     }
     drawCalender();
@@ -75,80 +69,61 @@ for (let i = 0; i < countTable.length; i++) {
 }
 
 const drawCalender = () => {
-  nowdate.textContent = date;
-  if (day === 0) {
-    nowday.textContent = "SUN";
-  } else if (day === 1) {
-    nowday.textContent = "MON";
-  } else if (day === 2) {
-    nowday.textContent = "TUE";
-  } else if (day === 3) {
-    nowday.textContent = "WED";
-  } else if (day === 4) {
-    nowday.textContent = "THU";
-  } else if (day === 5) {
-    nowday.textContent = "FRI";
-  } else if (day === 6) {
-    nowday.textContent = "SAT";
-  }
+  writeDate.textContent = selectedDate;
+  const dateMap = new Map();
+  dateMap.set(0, "SUN");
+  dateMap.set(1, "MON");
+  dateMap.set(2, "TUE");
+  dateMap.set(3, "WED");
+  dateMap.set(4, "THU");
+  dateMap.set(5, "FRI");
+  dateMap.set(6, "SAT");
 
-  if (month === 1) {
-    nowmonth.textContent = `JAN ${year}`;
-    lday = 31;
-  } else if (month === 2) {
-    nowmonth.textContent = `FEB ${year}`;
-    if (year % 4 === 0) {
-      lday = 29;
+  writeDay.textContent = dateMap.get(selectedDay);
+
+  const monthMap = new Map();
+  monthMap.set(1, `JAN ${selectedYear}`, (lastDay = 31));
+  monthMap.set(3, `MAR ${selectedYear}`, (lastDay = 31));
+  monthMap.set(4, `APR ${selectedYear}`, (lastDay = 30));
+  monthMap.set(5, `MAY ${selectedYear}`, (lastDay = 31));
+  monthMap.set(6, `JUN ${selectedYear}`, (lastDay = 30));
+  monthMap.set(7, `JUL ${selectedYear}`, (lastDay = 31));
+  monthMap.set(8, `AUG ${selectedYear}`, (lastDay = 31));
+  monthMap.set(9, `SEP ${selectedYear}`, (lastDay = 30));
+  monthMap.set(10, `OCT ${selectedYear}`, (lastDay = 31));
+  monthMap.set(11, `NOV ${selectedYear}`, (lastDay = 30));
+  monthMap.set(12, `DEC ${selectedYear}`, (lastDay = 31));
+
+  writeMonth.textContent = monthMap.get(selectedMonth);
+
+  if (selectedMonth === 2) {
+    writeMonth.textContent = `FEB ${selectedYear}`;
+    if (selectedYear % 4 === 0) {
+      lastDay = 29;
     } else {
-      lday = 28;
-    }
-  } else if (month === 3) {
-    nowmonth.textContent = `MAR ${year}`;
-    lday = 31;
-  } else if (month === 4) {
-    nowmonth.textContent = `APR ${year}`;
-    lday = 30;
-  } else if (month === 5) {
-    nowmonth.textContent = `MAY ${year}`;
-    lday = 31;
-  } else if (month === 6) {
-    nowmonth.textContent = `JUN ${year}`;
-    lday = 30;
-  } else if (month === 7) {
-    nowmonth.textContent = `JUL ${year}`;
-    lday = 31;
-  } else if (month === 8) {
-    nowmonth.textContent = `AUG ${year}`;
-    lday = 31;
-  } else if (month === 9) {
-    nowmonth.textContent = `SEP ${year}`;
-    lday = 30;
-  } else if (month === 10) {
-    nowmonth.textContent = `OCT ${year}`;
-    lday = 31;
-  } else if (month === 11) {
-    nowmonth.textContent = `NOV ${year}`;
-    lday = 30;
-  } else if (month === 12) {
-    nowmonth.textContent = `DEC ${year}`;
-    lday = 31;
+      lastDay = 28;
+    } //윤년 구분 추가 4로 나눠 떨어지면 29일 아니면 28일
   }
 
   for (let i = 0; i < 7; i++) {
-    var c = 1;
-    if (i === fday) {
+    let number = 1;
+    if (i === oneDay) {
       for (let k = 0; k < 42; k++) {
-        countTable[k].textContent = "";
-        countTable[k].style.color = "black";
+        drawTable[k].textContent = "";
+        drawTable[k].style.color = "black";
       }
-      for (let j = fday; j < lday + fday; j++) {
-        countTable[j].textContent = c;
-        if (year === realyear && month === realmonth && realdate === date) {
-          if (c === date) {
-            countTable[j].style.color = "red";
+      for (let j = oneDay; j < lastDay + oneDay; j++) {
+        drawTable[j].textContent = number;
+        if (
+          selectedYear === realYear &&
+          selectedMonth === realMonth &&
+          selectedDate === realDate
+        ) {
+          if (number === selectedDate) {
+            drawTable[j].style.color = "red";
           }
         }
-        c++;
+        number++;
       }
     }
   }
