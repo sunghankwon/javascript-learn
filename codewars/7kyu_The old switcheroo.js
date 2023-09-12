@@ -22,7 +22,12 @@ function vowel2index(str) {
       str[i] === "e" ||
       str[i] === "i" ||
       str[i] === "o" ||
-      str[i] === "u"
+      str[i] === "u" ||
+      str[i] === "A" ||
+      str[i] === "E" ||
+      str[i] === "I" ||
+      str[i] === "O" ||
+      str[i] === "U"
     ) {
       let count = i + 1;
       answer += count;
