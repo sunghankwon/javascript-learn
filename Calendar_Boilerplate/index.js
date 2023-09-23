@@ -22,6 +22,7 @@ const drawTable = document.querySelectorAll("tbody > tr> th");
 
 const arrowButton = document.querySelectorAll("i");
 arrowButton[0].addEventListener("click", function () {
+  console.log(this);
   selectedMonth--;
   if (selectedYear === realYear && selectedMonth === realMonth) {
     selectedDate = realdate;
@@ -36,6 +37,8 @@ arrowButton[0].addEventListener("click", function () {
   drawCalender();
 });
 arrowButton[1].addEventListener("click", function () {
+  console.log(this);
+
   selectedMonth++;
   if (selectedYear === realYear && selectedMonth === realMonth) {
     selectedDate = realDate;
@@ -53,6 +56,8 @@ arrowButton[1].addEventListener("click", function () {
 for (let i = 0; i < drawTable.length; i++) {
   drawTable[i].idx = i;
   drawTable[i].addEventListener("click", function () {
+    console.log(this);
+
     if (this.idx - oneDay + 1 > lastDay) {
     } else {
       if (this.idx === 0) {
