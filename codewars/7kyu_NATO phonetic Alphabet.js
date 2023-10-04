@@ -67,7 +67,7 @@ function nato(word) {
     } else if (word[i] === "w" || word[i] === "W") {
       answer += "Whiskey ";
     } else if (word[i] === "x" || word[i] === "X") {
-      answer += "Xray ";
+      answer += "X-ray ";
     } else if (word[i] === "y" || word[i] === "Y") {
       answer += "Yankee ";
     } else if (word[i] === "z" || word[i] === "Z") {
